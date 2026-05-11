@@ -2,7 +2,7 @@
  * Servicio de API para Programas Académicos
  */
 
-import type { Program, Category, Modality } from "@/types";
+import type { Program, Category, Modality } from "../../types";
 
 const API_URL = import.meta.env.VITE_PROGRAMS_API ?? "/programs.json";
 

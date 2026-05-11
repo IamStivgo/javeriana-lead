@@ -1,4 +1,4 @@
-import type { Lead } from "@/types";
+import type { Lead } from "../../types";
 
 const STORAGE_KEY = "javeriana_leads";
 
