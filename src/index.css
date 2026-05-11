@@ -162,3 +162,15 @@ body {
 .anim-pop { animation: var(--animate-pop); }
 .anim-shimmer { animation: var(--animate-shimmer); }
 .anim-float { animation: var(--animate-float); }
+
+/* Shimmer effect for skeletons */
+.shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 0%,
+    var(--color-line) 50%,
+    var(--color-surface-2) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
