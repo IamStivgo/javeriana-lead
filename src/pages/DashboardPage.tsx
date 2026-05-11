@@ -1,14 +1,16 @@
 import React, { useState, useMemo } from "react";
 import { usePrograms, useFilteredPrograms, useDebounce } from "../hooks";
 import { FilterPills, SkeletonCard } from "../components/molecules";
-import { ProgramCard } from "../components/organisms";
+import { ProgramCard, LeadForm } from "../components/organisms";
 import { Button } from "../components/atoms";
 import { CATEGORIES } from "../utils";
-import type { Category } from "../types";
+import type { Category, Program } from "../types";
 
 export function DashboardPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<Category | "Todos">("Todos");
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedProgramId, setSelectedProgramId] = useState<number | undefined>(undefined);
   const debouncedSearch = useDebounce(search, 250);
 
   // Cargar programas desde la API
@@ -46,6 +48,18 @@ export function DashboardPage() {
       window.removeEventListener("dashboard-search", handleSearch as EventListener);
     };
   }, []);
+
+  // ──────────────────── Handlers ────────────────────
+
+  const handleInscribe = (program: Program) => {
+    setSelectedProgramId(program.id);
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setSelectedProgramId(undefined);
+  };
 
   // ──────────────────── Estados de carga ────────────────────
 
@@ -179,8 +193,13 @@ export function DashboardPage() {
       {/* Programs Grid */}
       {hasResults ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 anim-up">
-          {filteredPrograms.map((program) => (
-            <ProgramCard key={program.id} program={program} />
+          {filteredPrograms.map((program, index) => (
+            <ProgramCard 
+              key={program.id} 
+              program={program} 
+              onInscribe={handleInscribe}
+              index={index}
+            />
           ))}
         </div>
       ) : (
@@ -221,6 +240,13 @@ export function DashboardPage() {
           </Button>
         </div>
       )}
+
+      {/* Lead Form Modal */}
+      <LeadForm
+        isOpen={isFormOpen}
+        onClose={handleCloseForm}
+        preselectedProgramId={selectedProgramId}
+      />
     </div>
   );
 }

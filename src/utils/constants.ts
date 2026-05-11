@@ -1,3 +1,4 @@
+import type { BadgeVariant } from "../components/atoms/Badge";
 import type { Category } from "../types";
 
 /**
@@ -44,7 +45,7 @@ export type Interest = (typeof INTERESTS)[number];
 /**
  * Colores para badges de categorías
  */
-export const CATEGORY_COLORS: Record<Category, string> = {
+export const CATEGORY_COLORS: Record<Category, BadgeVariant> = {
   Pregrado: "indigo",
   Posgrado: "amber",
   "Educación Continua": "emerald",
