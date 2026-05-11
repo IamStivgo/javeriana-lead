@@ -57,11 +57,14 @@ export function saveLeads(leads: Lead[]): void {
     if (error instanceof Error && error.name === "QuotaExceededError") {
       console.error("Cuota de localStorage excedida. No se pueden guardar más leads.");
       throw new Error(
-        "Límite de almacenamiento alcanzado. Por favor, elimina algunos leads antes de continuar."
+        "Límite de almacenamiento alcanzado. Por favor, elimina algunos leads antes de continuar.",
+        { cause: error }
       );
     }
     console.error("Error al guardar leads:", error);
-    throw new Error("No se pudieron guardar los leads");
+    throw new Error("No se pudieron guardar los leads", { 
+      cause: error 
+    });
   }
 }
 
@@ -98,7 +101,9 @@ export function clearLeads(): void {
     localStorage.removeItem(STORAGE_KEY);
   } catch (error) {
     console.error("Error al limpiar leads:", error);
-    throw new Error("No se pudieron eliminar los leads");
+    throw new Error("No se pudieron eliminar los leads", { 
+      cause: error 
+    });
   }
 }
 
