@@ -22,6 +22,8 @@ export function PriceRangeFilter({
   const [min, max] = value;
   const [minBound, maxBound] = bounds;
 
+  // Estado local para manejar cambios mientras el usuario escribe
+  // Se inicializa con los props, pero se reinicia solo al montar
   const [localMin, setLocalMin] = useState(min);
   const [localMax, setLocalMax] = useState(max);
 
@@ -40,18 +42,19 @@ export function PriceRangeFilter({
   };
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newMax = Number(e.target.value);
+    const newMax = e.target.value === "" ? maxBound : Number(e.target.value);
     setLocalMax(newMax);
   };
 
   const handleMinBlur = () => {
-    const clampedMin = Math.max(minBound, Math.min(localMin, localMax));
+    const clampedMin = Math.max(minBound, Math.min(localMin, localMax === Number.POSITIVE_INFINITY ? maxBound : localMax));
     setLocalMin(clampedMin);
     onChange([clampedMin, localMax]);
   };
 
   const handleMaxBlur = () => {
-    const clampedMax = Math.min(maxBound, Math.max(localMax, localMin));
+    const effectiveLocalMax = localMax === Number.POSITIVE_INFINITY ? maxBound : localMax;
+    const clampedMax = Math.min(maxBound, Math.max(effectiveLocalMax, localMin));
     setLocalMax(clampedMax);
     onChange([localMin, clampedMax]);
   };

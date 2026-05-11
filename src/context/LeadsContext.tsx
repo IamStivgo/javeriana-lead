@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { Lead } from "../types";
 import * as leadsStorage from "../services/storage/leadsStorage";
@@ -34,18 +34,21 @@ interface LeadsProviderProps {
   children: ReactNode;
 }
 
+function initializeLeadsState(): LeadsState {
+  const storedLeads = leadsStorage.getLeads();
+  return { leads: storedLeads };
+}
+
 export function LeadsProvider({ children }: LeadsProviderProps) {
-  const [state, dispatch] = useReducer(leadsReducer, { leads: [] });
+  const [state, dispatch] = useReducer(leadsReducer, undefined, initializeLeadsState);
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    const storedLeads = leadsStorage.getLeads();
-    dispatch({ type: "hydrate", leads: storedLeads });
-  }, []);
-
-  useEffect(() => {
-    if (state.leads.length > 0 || leadsStorage.getLeadsCount() > 0) {
-      leadsStorage.saveLeads(state.leads);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
     }
+    leadsStorage.saveLeads(state.leads);
   }, [state.leads]);
 
   // ──────────────────── Actions ────────────────────

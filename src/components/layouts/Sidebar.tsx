@@ -120,21 +120,6 @@ export function Sidebar() {
           ))}
         </nav>
       </div>
-
-      {/* Tip Card */}
-      <div className="mt-auto px-4 pb-5 pt-4">
-        <div
-          className="rounded-xl p-3.5 anim-up bg-[var(--color-surface-2)] border border-[var(--color-line)]"
-        >
-          <div className="flex items-center gap-2 mb-1.5">
-            <SparkleIcon />
-            <div className="text-xs font-medium text-[var(--color-ink)]">Atajo</div>
-          </div>
-          <div className="text-xs text-[var(--color-ink-soft)] leading-snug">
-            Usa el buscador superior para filtrar programas por nombre o facultad.
-          </div>
-        </div>
-      </div>
     </aside>
   );
 }
@@ -146,23 +131,5 @@ function LogoIcon() {
     <div className="w-7 h-7 rounded-lg bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-sm">
       J
     </div>
-  );
-}
-
-function SparkleIcon() {
-  return (
-    <svg
-      className="w-[13px] h-[13px] text-[var(--color-accent)]"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-      />
-    </svg>
   );
 }

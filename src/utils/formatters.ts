@@ -24,7 +24,18 @@ export function formatCOP(amount: number): string {
  */
 export function formatShortDate(isoDate: string): string {
   try {
-    const date = new Date(isoDate + "T00:00:00"); // Forzar hora local
+    let date: Date;
+    
+    if (isoDate.includes('T')) {
+      date = new Date(isoDate);
+    } else {
+      date = new Date(isoDate + "T00:00:00");
+    }
+
+    if (isNaN(date.getTime())) {
+      console.warn("Fecha inválida:", isoDate);
+      return isoDate;
+    }
 
     const day = date.getDate();
     const month = date.toLocaleDateString("es-CO", { month: "short" });
@@ -42,7 +53,18 @@ export function formatShortDate(isoDate: string): string {
  */
 export function formatLongDate(isoDate: string): string {
   try {
-    const date = new Date(isoDate + "T00:00:00");
+    let date: Date;
+    
+    if (isoDate.includes('T')) {
+      date = new Date(isoDate);
+    } else {
+      date = new Date(isoDate + "T00:00:00");
+    }
+
+    if (isNaN(date.getTime())) {
+      console.warn("Fecha inválida:", isoDate);
+      return isoDate;
+    }
 
     return date.toLocaleDateString("es-CO", {
       day: "numeric",
