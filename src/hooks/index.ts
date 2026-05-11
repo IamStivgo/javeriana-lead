@@ -7,3 +7,4 @@ export { useLeadForm } from "./useLeadForm";
 export type { UseLeadFormReturn } from "./useLeadForm";
 export { useLeads } from "./useLeads";
 export { useTheme } from "./useTheme";
+export { useToast } from "./useToast";
