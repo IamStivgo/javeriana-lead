@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Program, Category } from "@/types";
+import type { Program, Category } from "../types";
 
 export interface ProgramFilters {
   search: string;

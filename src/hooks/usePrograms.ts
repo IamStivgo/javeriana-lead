@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import type { ApiState, Program } from "@/types";
-import { fetchPrograms } from "@/services";
+import type { ApiState, Program } from "../types";
+import { fetchPrograms } from "../services";
 
 /**
  * Hook que maneja el fetch de programas con estados loading/error/success

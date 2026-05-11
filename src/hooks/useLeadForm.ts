@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import type { LeadDraft, LeadErrors } from "@/types";
+import type { LeadDraft, LeadErrors } from "../types";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\d{7,}/;
@@ -122,11 +122,11 @@ export function useLeadForm(
   // Actualizar un campo
   const setField = useCallback(
     <K extends keyof LeadDraft>(field: K, value: LeadDraft[K]) => {
-      setData((prev) => ({ ...prev, [field]: value }));
-      setTouched((prev) => ({ ...prev, [field]: true }));
+      setData((prev: LeadDraft) => ({ ...prev, [field]: value }));
+      setTouched((prev: Record<keyof LeadDraft, boolean>) => ({ ...prev, [field]: true }));
       if (touched[field]) {
         const error = validateField(field);
-        setErrors((prev) => ({
+        setErrors((prev: LeadErrors) => ({
           ...prev,
           [field]: error,
         }));
@@ -138,9 +138,9 @@ export function useLeadForm(
   // Validar campo específico (para onBlur)
   const handleValidateField = useCallback(
     (field: keyof LeadDraft) => {
-      setTouched((prev) => ({ ...prev, [field]: true }));
+      setTouched((prev: Record<keyof LeadDraft, boolean>) => ({ ...prev, [field]: true }));
       const error = validateField(field);
-      setErrors((prev) => ({
+      setErrors((prev: LeadErrors) => ({
         ...prev,
         [field]: error,
       }));
