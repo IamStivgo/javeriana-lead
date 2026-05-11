@@ -120,7 +120,9 @@ export async function fetchPrograms(signal?: AbortSignal): Promise<Program[]> {
     // Enriquecer otros errores con contexto
     const message =
       error instanceof Error ? error.message : "Error desconocido";
-    throw new Error(`Error al cargar programas: ${message}`);
+    throw new Error(`Error al cargar programas: ${message}`, { 
+      cause: error 
+    });
   }
 }
 
