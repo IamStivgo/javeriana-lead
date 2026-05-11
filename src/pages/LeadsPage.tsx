@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useCallback, memo } from "react";
 import { Link } from "react-router-dom";
 import { useLeads, usePrograms } from "../hooks";
 import { useToast } from "../hooks/useToast";
@@ -26,19 +26,19 @@ export function LeadsPage() {
   }, [leads]);
 
   // Obtener nombre del programa
-  const getProgramName = (programId: number): string => {
+  const getProgramName = useCallback((programId: number): string => {
     const program = programs?.find((p) => p.id === programId);
     return program?.title || `Programa #${programId}`;
-  };
+  }, [programs]);
 
   // Obtener categoría del programa
-  const getProgramCategory = (programId: number) => {
+  const getProgramCategory = useCallback((programId: number) => {
     const program = programs?.find((p) => p.id === programId);
     return program?.category || null;
-  };
+  }, [programs]);
 
   // Handler para eliminar lead individual
-  const handleRemoveLead = (lead: Lead) => {
+  const handleRemoveLead = useCallback((lead: Lead) => {
     const confirmed = window.confirm(
       `¿Estás seguro de eliminar el lead de ${lead.fullName}?\n\nEsta acción no se puede deshacer.`
     );
@@ -47,10 +47,10 @@ export function LeadsPage() {
       removeLead(lead.id);
       addToast(`Lead de ${lead.fullName} eliminado`, "success");
     }
-  };
+  }, [removeLead, addToast]);
 
   // Handler para limpiar todos los leads
-  const handleClearAll = () => {
+  const handleClearAll = useCallback(() => {
     const confirmed = window.confirm(
       `¿Estás seguro de eliminar TODOS los leads (${leads.length})?\n\nEsta acción no se puede deshacer.`
     );
@@ -59,7 +59,7 @@ export function LeadsPage() {
       clearLeads();
       addToast("Todos los leads han sido eliminados", "success");
     }
-  };
+  }, [leads.length, clearLeads, addToast]);
 
   // Empty state
   if (leads.length === 0) {
@@ -206,7 +206,7 @@ interface StatCardProps {
   color: "indigo" | "amber" | "emerald";
 }
 
-function StatCard({ icon, label, value, color }: StatCardProps) {
+const StatCard = memo(({ icon, label, value, color }: StatCardProps) => {
   const colorClasses = {
     indigo: "text-[var(--color-indigo)] bg-[var(--color-indigo)]/10",
     amber: "text-[var(--color-amber)] bg-[var(--color-amber)]/10",
@@ -226,14 +226,16 @@ function StatCard({ icon, label, value, color }: StatCardProps) {
       </div>
     </div>
   );
-}
+});
+
+StatCard.displayName = "StatCard";
 
 interface LeadRowProps {
   lead: Lead;
   onRemove: () => void;
 }
 
-function LeadRow({ lead, onRemove }: LeadRowProps) {
+const LeadRow = memo(({ lead, onRemove }: LeadRowProps) => {
   return (
     <div className="p-4 hover:bg-[var(--color-surface-2)] transition-colors">
       <div className="flex items-start justify-between gap-4">
@@ -301,7 +303,9 @@ function LeadRow({ lead, onRemove }: LeadRowProps) {
       </div>
     </div>
   );
-}
+});
+
+LeadRow.displayName = "LeadRow";
 
 // ──────────────────── Helpers ────────────────────
 

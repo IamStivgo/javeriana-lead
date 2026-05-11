@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { usePrograms, useFilteredPrograms, useDebounce } from "../hooks";
 import { FilterPills, SkeletonCard } from "../components/molecules";
 import { ProgramCard, LeadForm } from "../components/organisms";
@@ -51,15 +51,15 @@ export function DashboardPage() {
 
   // ──────────────────── Handlers ────────────────────
 
-  const handleInscribe = (program: Program) => {
+  const handleInscribe = useCallback((program: Program) => {
     setSelectedProgramId(program.id);
     setIsFormOpen(true);
-  };
+  }, []);
 
-  const handleCloseForm = () => {
+  const handleCloseForm = useCallback(() => {
     setIsFormOpen(false);
     setSelectedProgramId(undefined);
-  };
+  }, []);
 
   // ──────────────────── Estados de carga ────────────────────
 

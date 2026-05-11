@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* ══════════════════════════════════════════════════════════════════════════
-   Javeriana Lead Manager — Design Tokens & Theme
-   Base palette: warm cream, deep indigo OKLCH, serif/sans mix
-   ══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
   /* ──────────────────── Typography ──────────────────── */
@@ -23,6 +19,8 @@
   --color-accent: oklch(0.42 0.13 268);
   --color-accent-soft: oklch(0.94 0.04 268);
   --color-accent-strong: oklch(0.36 0.15 268);
+  --color-indigo: oklch(0.48 0.14 275);
+  --color-amber: oklch(0.72 0.13 65);
   --color-gold: oklch(0.78 0.12 80);
   --color-emerald: oklch(0.55 0.10 165);
   --color-rose: oklch(0.62 0.13 18);
@@ -58,6 +56,11 @@
   --color-accent: oklch(0.78 0.13 268);
   --color-accent-soft: oklch(0.30 0.10 268);
   --color-accent-strong: oklch(0.85 0.14 268);
+  --color-indigo: oklch(0.72 0.15 275);
+  --color-amber: oklch(0.78 0.13 65);
+  --color-gold: oklch(0.80 0.12 80);
+  --color-emerald: oklch(0.70 0.12 165);
+  --color-rose: oklch(0.72 0.14 18);
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md: 0 6px 18px -8px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3);
   --shadow-lg: 0 24px 48px -16px rgba(0,0,0,0.7);

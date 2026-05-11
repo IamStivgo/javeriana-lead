@@ -159,7 +159,13 @@ export function LeadForm({
         )}
       >
         {step === "form" && (
-          <form onSubmit={handleSubmit} className="flex flex-col h-full">
+          <form 
+            onSubmit={handleSubmit} 
+            className="flex flex-col h-full"
+            aria-labelledby="lead-form-title"
+            aria-describedby="lead-form-description"
+            noValidate
+          >
             {/* Header */}
             <div className="sticky top-0 bg-[var(--color-bg)] border-b border-[var(--color-line)] px-6 py-4 z-10">
               <div className="flex items-center justify-between">
@@ -179,7 +185,7 @@ export function LeadForm({
                   <CloseIcon />
                 </button>
               </div>
-              <p className="text-sm text-[var(--color-ink-soft)] mt-1">
+              <p id="lead-form-description" className="text-sm text-[var(--color-ink-soft)] mt-1">
                 Completa los datos del prospecto interesado
               </p>
             </div>
