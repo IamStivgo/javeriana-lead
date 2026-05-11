@@ -53,6 +53,7 @@ export function Sidebar() {
         "hidden lg:flex flex-col flex-shrink-0 anim-right",
         "w-[232px] bg-[var(--color-surface)] border-r border-[var(--color-line)]"
       )}
+      aria-label="Navegación principal"
     >
       {/* Brand */}
       <div className="px-5 pt-6 pb-5 flex items-center gap-2.5">
@@ -69,10 +70,10 @@ export function Sidebar() {
 
       {/* Navigation */}
       <div className="px-3 mt-2">
-        <div className="mono text-[10px] uppercase tracking-widest text-[var(--color-ink-muted)] px-2 mb-1">
+        <h2 className="mono text-[10px] uppercase tracking-widest text-[var(--color-ink-muted)] px-2 mb-1">
           Espacio de trabajo
-        </div>
-        <nav className="flex flex-col gap-0.5">
+        </h2>
+        <nav aria-label="Menú de navegación" className="flex flex-col gap-0.5">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.path}
