@@ -1,11 +1,10 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { usePrograms, useFilteredPrograms, useFiltersContext } from "../hooks";
-import { FilterPills, SkeletonCard } from "../components/molecules";
-import { ProgramCard, LeadForm } from "../components/organisms";
+import { SkeletonCard } from "../components/molecules";
+import { ProgramCard, LeadForm, FiltersBar } from "../components/organisms";
 import { Button } from "../components/atoms";
-import { CATEGORIES } from "../utils";
 import { FiltersProvider } from "../context/FiltersContext";
-import type { Category, Program } from "../types";
+import type { Program } from "../types";
 
 export function DashboardPage() {
   const programsState = usePrograms();
@@ -114,7 +113,7 @@ function DashboardContent({ programs }: DashboardContentProps) {
     throw new Error("DashboardContent debe usarse dentro de FiltersProvider");
   }
   
-  const { effectiveFilters, setFilter, clearFilters, activeFilterCount } = context;
+  const { effectiveFilters, clearFilters } = context;
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedProgramId, setSelectedProgramId] = useState<
     number | undefined
@@ -122,17 +121,6 @@ function DashboardContent({ programs }: DashboardContentProps) {
 
   // Filtrar programas
   const filteredPrograms = useFilteredPrograms(programs, effectiveFilters);
-
-  const filterOptions = useMemo(() => {
-    return CATEGORIES.map((cat) => ({
-      value: cat,
-      label: cat,
-      count:
-        cat === "Todos"
-          ? programs.length
-          : programs.filter((p) => p.category === cat).length,
-    }));
-  }, [programs]);
 
   // ──────────────────── Handlers ────────────────────
 
@@ -149,7 +137,6 @@ function DashboardContent({ programs }: DashboardContentProps) {
   // ──────────────────── Render ────────────────────
 
   const hasResults = filteredPrograms.length > 0;
-  const hasFilters = activeFilterCount > 0;
 
   return (
     <div className="space-y-6 anim-fade">
@@ -164,30 +151,14 @@ function DashboardContent({ programs }: DashboardContentProps) {
       </div>
 
       {/* Filters */}
-      <div className="space-y-4">
-        <FilterPills
-          options={filterOptions}
-          value={effectiveFilters.category}
-          onChange={(value) => setFilter("category", value as Category | "Todos")}
-        />
+      <FiltersBar />
 
-        {/* Results count */}
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-[var(--color-ink-soft)]">
-            {filteredPrograms.length}{" "}
-            {filteredPrograms.length === 1 ? "programa encontrado" : "programas encontrados"}
-          </p>
-
-          {hasFilters && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={clearFilters}
-            >
-              Limpiar filtros
-            </Button>
-          )}
-        </div>
+      {/* Results count */}
+      <div className="flex items-center justify-between border-t border-[var(--color-line)] pt-4">
+        <p className="text-sm text-[var(--color-ink-soft)]">
+          {filteredPrograms.length}{" "}
+          {filteredPrograms.length === 1 ? "programa encontrado" : "programas encontrados"}
+        </p>
       </div>
 
       {/* Programs Grid */}
