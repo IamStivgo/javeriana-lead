@@ -3,6 +3,7 @@ export { useDebounce } from "./useDebounce";
 export { usePrograms } from "./usePrograms";
 export { useFilteredPrograms } from "./useFilteredPrograms";
 export { useFilters } from "./useFilters";
+export { useFiltersContext } from "./useFiltersContext";
 export { useLeadForm } from "./useLeadForm";
 export type { UseLeadFormReturn } from "./useLeadForm";
 export { useLeads } from "./useLeads";
