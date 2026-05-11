@@ -9,9 +9,29 @@ import { useDebounce } from "./useDebounce";
  * con persistencia en localStorage y debouncing
  */
 export function useFilters(programs: Program[]) {
-  const [filters, setFilters] = useLocalStorage<ProgramFilters>(
+  const [rawFilters, setRawFilters] = useLocalStorage<ProgramFilters>(
     STORAGE_KEYS.FILTERS,
     DEFAULT_FILTERS
+  );
+
+  // Normalizar filtros: JSON.stringify convierte Infinity a null
+  // Al leer de localStorage, restauramos Infinity si es necesario
+  const filters = useMemo(() => {
+    const [minPrice, maxPrice] = rawFilters.priceRange;
+    return {
+      ...rawFilters,
+      priceRange: [
+        minPrice ?? 0,
+        maxPrice === null || maxPrice === undefined ? Number.POSITIVE_INFINITY : maxPrice
+      ] as [number, number]
+    };
+  }, [rawFilters]);
+
+  const setFilters = useCallback(
+    (value: ProgramFilters | ((prev: ProgramFilters) => ProgramFilters)) => {
+      setRawFilters(value);
+    },
+    [setRawFilters]
   );
 
   // Debounce para búsqueda y rango de precio
