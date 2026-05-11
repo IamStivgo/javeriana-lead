@@ -133,6 +133,7 @@ export function FiltersBar({ className }: FiltersBarProps) {
 
         <div className="mt-3 pl-6">
           <PriceRangeFilter
+            key={`${filters.priceRange[0]}-${filters.priceRange[1]}`}
             value={filters.priceRange}
             onChange={(value) => setFilter("priceRange", value)}
             bounds={priceBounds}
