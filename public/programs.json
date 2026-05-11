@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "title": "Ingeniería de Sistemas",
+    "category": "Pregrado",
+    "duration": "10 semestres",
+    "modality": "Presencial",
+    "startDate": "2026-07-21",
+    "location": "Bogotá · Sede Central",
+    "seats": 120,
+    "seatsLeft": 34,
+    "price": 8950000,
+    "rating": 4.8,
+    "faculty": "Facultad de Ingeniería",
+    "summary": "Forma profesionales capaces de diseñar y construir software a escala, con bases sólidas en arquitectura, datos y sistemas distribuidos.",
+    "highlights": [
+      "Doble titulación opcional",
+      "Convenios con 24 universidades",
+      "Laboratorio de IA aplicada"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Maestría en Ciencia de Datos",
+    "category": "Posgrado",
+    "duration": "4 semestres",
+    "modality": "Híbrida",
+    "startDate": "2026-08-12",
+    "location": "Bogotá · Edificio 67",
+    "seats": 40,
+    "seatsLeft": 8,
+    "price": 24500000,
+    "rating": 4.9,
+    "faculty": "Facultad de Ingeniería",
+    "summary": "Programa orientado a profesionales que buscan liderar proyectos de analítica avanzada, machine learning y MLOps en organizaciones complejas.",
+    "highlights": [
+      "Investigación con sector productivo",
+      "Stack en producción (PyTorch + Spark)",
+      "Tesis o proyecto aplicado"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Especialización en UX Research",
+    "category": "Educación Continua",
+    "duration": "16 semanas",
+    "modality": "Virtual",
+    "startDate": "2026-06-03",
+    "location": "Online",
+    "seats": 60,
+    "seatsLeft": 22,
+    "price": 6200000,
+    "rating": 4.7,
+    "faculty": "Facultad de Comunicación y Lenguaje",
+    "summary": "Construye una práctica de investigación rigurosa: discovery, entrevistas, usabilidad y comunicación de hallazgos con stakeholders senior.",
+    "highlights": [
+      "Mentorías 1:1 cada semana",
+      "Portafolio con tres estudios",
+      "Certificado verificable"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Comunicación Social",
+    "category": "Pregrado",
+    "duration": "8 semestres",
+    "modality": "Presencial",
+    "startDate": "2026-07-21",
+    "location": "Bogotá · Sede Central",
+    "seats": 90,
+    "seatsLeft": 51,
+    "price": 8200000,
+    "rating": 4.6,
+    "faculty": "Facultad de Comunicación y Lenguaje",
+    "summary": "Periodismo, narrativas digitales, branding y producción audiovisual en una facultad con cinco décadas de tradición editorial.",
+    "highlights": [
+      "Estudios de TV y radio en sede",
+      "Énfasis en narrativas inmersivas",
+      "Pasantía editorial obligatoria"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Maestría en Gerencia y Política Pública",
+    "category": "Posgrado",
+    "duration": "4 semestres",
+    "modality": "Híbrida",
+    "startDate": "2026-09-05",
+    "location": "Bogotá · Edificio 95",
+    "seats": 35,
+    "seatsLeft": 14,
+    "price": 22800000,
+    "rating": 4.8,
+    "faculty": "Facultad de Ciencias Políticas",
+    "summary": "Diseñada para servidores públicos y consultores que toman decisiones de política con impacto territorial y nacional.",
+    "highlights": [
+      "Casos con entidades reales",
+      "Misión académica internacional",
+      "Eje de evaluación de impacto"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Diplomado en Liderazgo Adaptativo",
+    "category": "Educación Continua",
+    "duration": "10 semanas",
+    "modality": "Virtual",
+    "startDate": "2026-05-19",
+    "location": "Online",
+    "seats": 80,
+    "seatsLeft": 47,
+    "price": 4400000,
+    "rating": 4.5,
+    "faculty": "Escuela de Liderazgo",
+    "summary": "Modelo de Heifetz aplicado a contextos latinoamericanos. Sesiones en vivo, simulaciones y plan de intervención propio.",
+    "highlights": [
+      "Sesiones sincrónicas semanales",
+      "Coach asignado",
+      "Proyecto de intervención"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Medicina",
+    "category": "Pregrado",
+    "duration": "12 semestres",
+    "modality": "Presencial",
+    "startDate": "2026-07-21",
+    "location": "Bogotá · Hospital Universitario",
+    "seats": 95,
+    "seatsLeft": 6,
+    "price": 14900000,
+    "rating": 4.9,
+    "faculty": "Facultad de Medicina",
+    "summary": "Formación clínica desde primer año en uno de los hospitales universitarios más reconocidos del país.",
+    "highlights": [
+      "Hospital propio en sede",
+      "Énfasis humanístico",
+      "Investigación traslacional"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Doctorado en Filosofía",
+    "category": "Posgrado",
+    "duration": "8 semestres",
+    "modality": "Presencial",
+    "startDate": "2026-02-10",
+    "location": "Bogotá · Sede Central",
+    "seats": 12,
+    "seatsLeft": 4,
+    "price": 0,
+    "rating": 4.9,
+    "faculty": "Facultad de Filosofía",
+    "summary": "Programa con becas integrales para investigadores con foco en filosofía contemporánea, ética aplicada y pensamiento latinoamericano.",
+    "highlights": [
+      "Becas integrales disponibles",
+      "Tutor doctoral personalizado",
+      "Estancia internacional"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Curso de Producto: Discovery a Delivery",
+    "category": "Educación Continua",
+    "duration": "6 semanas",
+    "modality": "Virtual",
+    "startDate": "2026-05-05",
+    "location": "Online",
+    "seats": 100,
+    "seatsLeft": 73,
+    "price": 2900000,
+    "rating": 4.4,
+    "faculty": "Facultad de Ingeniería",
+    "summary": "Bootcamp para PMs y diseñadores junior. Frameworks de discovery, métricas de outcome y roadmap colaborativo.",
+    "highlights": [
+      "Workshops en vivo",
+      "Casos de empresas reales",
+      "Comunidad de alumni"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Arquitectura",
+    "category": "Pregrado",
+    "duration": "10 semestres",
+    "modality": "Presencial",
+    "startDate": "2026-07-21",
+    "location": "Bogotá · Edificio Arquitectura",
+    "seats": 70,
+    "seatsLeft": 28,
+    "price": 9300000,
+    "rating": 4.7,
+    "faculty": "Facultad de Arquitectura y Diseño",
+    "summary": "Diseño con enfoque sostenible y crítico del territorio. Talleres verticales y prácticas con firmas reconocidas.",
+    "highlights": [
+      "Talleres verticales",
+      "Énfasis en sostenibilidad",
+      "Convenio Politecnico di Milano"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Maestría en Innovación Educativa",
+    "category": "Posgrado",
+    "duration": "4 semestres",
+    "modality": "Híbrida",
+    "startDate": "2026-08-26",
+    "location": "Bogotá · Edificio 25",
+    "seats": 30,
+    "seatsLeft": 11,
+    "price": 18900000,
+    "rating": 4.7,
+    "faculty": "Facultad de Educación",
+    "summary": "Diseña experiencias de aprendizaje para escuelas, universidades y organizaciones. Enfoque en evidencia y cambio sistémico.",
+    "highlights": [
+      "Cohorte multidisciplinaria",
+      "Énfasis en EdTech",
+      "Proyecto de transformación"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Diplomado en Finanzas Corporativas",
+    "category": "Educación Continua",
+    "duration": "12 semanas",
+    "modality": "Híbrida",
+    "startDate": "2026-06-17",
+    "location": "Bogotá · Edificio 11",
+    "seats": 50,
+    "seatsLeft": 19,
+    "price": 5800000,
+    "rating": 4.6,
+    "faculty": "Facultad de Ciencias Económicas",
+    "summary": "Valoración, M&A, estructura de capital y finanzas para no financieros. Casos colombianos y benchmarks internacionales.",
+    "highlights": [
+      "Casos colombianos",
+      "Software financiero incluido",
+      "Networking ejecutivo"
+    ]
+  }
+]
