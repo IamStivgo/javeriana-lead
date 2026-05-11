@@ -1,5 +1,6 @@
 import type { BadgeVariant } from "../components/atoms/Badge";
 import type { Category } from "../types";
+import type { ProgramFilters, SortKey } from "../types/filters";
 
 /**
  * Opciones de categorías de programas para filtros
@@ -110,3 +111,27 @@ export const ROUTES = {
   LEADS: "/leads",
   NOT_FOUND: "*",
 } as const;
+
+/**
+ * Opciones de ordenamiento de programas
+ */
+export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: "date", label: "Próxima fecha" },
+  { value: "rating", label: "Mejor valorados" },
+  { value: "seats", label: "Más cupos disponibles" },
+  { value: "price_asc", label: "Precio: menor a mayor" },
+  { value: "price_desc", label: "Precio: mayor a menor" },
+];
+
+/**
+ * Filtros por defecto para programas
+ */
+export const DEFAULT_FILTERS: ProgramFilters = {
+  search: "",
+  category: "Todos",
+  modality: "Todas",
+  faculty: "Todas",
+  priceRange: [0, Number.POSITIVE_INFINITY],
+  onlyWithSeats: false,
+  sortBy: "date",
+};

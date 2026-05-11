@@ -1,13 +1,8 @@
 import { useMemo } from "react";
-import type { Program, Category } from "../types";
-
-export interface ProgramFilters {
-  search: string;
-  category: Category | "Todos";
-}
+import type { Program, ProgramFilters } from "../types";
 
 /**
- * Hook que filtra programas usando useMemo para optimización
+ * Hook que filtra y ordena programas usando useMemo para optimización
  * Solo recomputa cuando cambian programas o filtros
  */
 export function useFilteredPrograms(
@@ -15,31 +10,68 @@ export function useFilteredPrograms(
   filters: ProgramFilters
 ): Program[] {
   return useMemo(() => {
-    let filtered = programs;
+    const q = filters.search.trim().toLowerCase();
+    const [minPrice, maxPrice] = filters.priceRange;
 
-    // Filtrar por categoría
-    if (filters.category !== "Todos") {
-      filtered = filtered.filter((p) => p.category === filters.category);
-    }
+    // ──────────────────── Fase 1: Filtrado ────────────────────
 
-    // Filtrar por texto de búsqueda
-    if (filters.search.trim()) {
-      const searchLower = filters.search.toLowerCase().trim();
-      
-      filtered = filtered.filter((program) => {
-        // Buscar en: título, facultad y resumen
-        const searchableText = [
-          program.title,
-          program.faculty,
-          program.summary,
-        ]
-          .join(" ")
+    const filtered = programs.filter((p) => {
+      // Filtrar por categoría
+      if (filters.category !== "Todos" && p.category !== filters.category) {
+        return false;
+      }
+
+      // Filtrar por modalidad
+      if (filters.modality !== "Todas" && p.modality !== filters.modality) {
+        return false;
+      }
+
+      // Filtrar por facultad
+      if (filters.faculty !== "Todas" && p.faculty !== filters.faculty) {
+        return false;
+      }
+
+      // Filtrar por cupos disponibles
+      if (filters.onlyWithSeats && p.seatsLeft <= 0) {
+        return false;
+      }
+
+      // Filtrar por rango de precio
+      if (p.price < minPrice || p.price > maxPrice) {
+        return false;
+      }
+
+      // Filtrar por texto de búsqueda
+      if (q) {
+        const searchableText = `${p.title} ${p.faculty} ${p.summary}`
           .toLowerCase();
+        if (!searchableText.includes(q)) {
+          return false;
+        }
+      }
 
-        return searchableText.includes(searchLower);
-      });
-    }
+      return true;
+    });
 
-    return filtered;
-  }, [programs, filters.search, filters.category]);
+    // ──────────────────── Fase 2: Ordenamiento ────────────────────
+
+    const sorted = [...filtered].sort((a, b) => {
+      switch (filters.sortBy) {
+        case "date":
+          return +new Date(a.startDate) - +new Date(b.startDate);
+        case "rating":
+          return b.rating - a.rating;
+        case "seats":
+          return b.seatsLeft - a.seatsLeft;
+        case "price_asc":
+          return a.price - b.price;
+        case "price_desc":
+          return b.price - a.price;
+        default:
+          return 0;
+      }
+    });
+
+    return sorted;
+  }, [programs, filters]);
 }

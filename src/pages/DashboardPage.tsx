@@ -1,65 +1,13 @@
-import React, { useState, useMemo, useCallback } from "react";
-import { usePrograms, useFilteredPrograms, useDebounce } from "../hooks";
-import { FilterPills, SkeletonCard } from "../components/molecules";
-import { ProgramCard, LeadForm } from "../components/organisms";
+import { useState, useCallback } from "react";
+import { usePrograms, useFilteredPrograms, useFiltersContext } from "../hooks";
+import { SkeletonCard } from "../components/molecules";
+import { ProgramCard, LeadForm, FiltersBar } from "../components/organisms";
 import { Button } from "../components/atoms";
-import { CATEGORIES } from "../utils";
-import type { Category, Program } from "../types";
+import { FiltersProvider } from "../context/FiltersContext";
+import type { Program } from "../types";
 
 export function DashboardPage() {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<Category | "Todos">("Todos");
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selectedProgramId, setSelectedProgramId] = useState<number | undefined>(undefined);
-  const debouncedSearch = useDebounce(search, 250);
-
-  // Cargar programas desde la API
   const programsState = usePrograms();
-
-  // Filtrar programas
-  const filteredPrograms = useFilteredPrograms(
-    programsState.data || [],
-    {
-      search: debouncedSearch,
-      category,
-    }
-  );
-
-  const filterOptions = useMemo(() => {
-    const programs = programsState.data || [];
-    return CATEGORIES.map((cat) => ({
-      value: cat,
-      label: cat,
-      count:
-        cat === "Todos"
-          ? programs.length
-          : programs.filter((p) => p.category === cat).length,
-    }));
-  }, [programsState.data]);
-
-  // Manejar búsqueda desde el Topbar
-  // Nota: En una implementación futura, esto se pasará desde AppLayout
-  React.useEffect(() => {
-    const handleSearch = (e: CustomEvent) => {
-      setSearch(e.detail.search || "");
-    };
-    window.addEventListener("dashboard-search", handleSearch as EventListener);
-    return () => {
-      window.removeEventListener("dashboard-search", handleSearch as EventListener);
-    };
-  }, []);
-
-  // ──────────────────── Handlers ────────────────────
-
-  const handleInscribe = useCallback((program: Program) => {
-    setSelectedProgramId(program.id);
-    setIsFormOpen(true);
-  }, []);
-
-  const handleCloseForm = useCallback(() => {
-    setIsFormOpen(false);
-    setSelectedProgramId(undefined);
-  }, []);
 
   // ──────────────────── Estados de carga ────────────────────
 
@@ -145,8 +93,50 @@ export function DashboardPage() {
   }
 
   // Estado: Success con datos
+  return (
+    <FiltersProvider programs={programsState.data || []}>
+      <DashboardContent programs={programsState.data || []} />
+    </FiltersProvider>
+  );
+}
+
+// ──────────────────── Dashboard Content ────────────────────
+
+interface DashboardContentProps {
+  programs: Program[];
+}
+
+function DashboardContent({ programs }: DashboardContentProps) {
+  const context = useFiltersContext();
+  
+  if (!context) {
+    throw new Error("DashboardContent debe usarse dentro de FiltersProvider");
+  }
+  
+  const { effectiveFilters, clearFilters } = context;
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedProgramId, setSelectedProgramId] = useState<
+    number | undefined
+  >(undefined);
+
+  // Filtrar programas
+  const filteredPrograms = useFilteredPrograms(programs, effectiveFilters);
+
+  // ──────────────────── Handlers ────────────────────
+
+  const handleInscribe = useCallback((program: Program) => {
+    setSelectedProgramId(program.id);
+    setIsFormOpen(true);
+  }, []);
+
+  const handleCloseForm = useCallback(() => {
+    setIsFormOpen(false);
+    setSelectedProgramId(undefined);
+  }, []);
+
+  // ──────────────────── Render ────────────────────
+
   const hasResults = filteredPrograms.length > 0;
-  const hasFilters = search.trim() !== "" || category !== "Todos";
 
   return (
     <div className="space-y-6 anim-fade">
@@ -156,38 +146,19 @@ export function DashboardPage() {
           Programas Académicos
         </h1>
         <p className="text-[var(--color-ink-soft)] mt-2">
-          Explora {programsState.data?.length || 0} programas de pregrado, posgrado y educación continua
+          Explora {programs.length} programas de pregrado, posgrado y educación continua
         </p>
       </div>
 
       {/* Filters */}
-      <div className="space-y-4">
-        <FilterPills
-          options={filterOptions}
-          value={category}
-          onChange={(value) => setCategory(value as Category | "Todos")}
-        />
+      <FiltersBar />
 
-        {/* Results count */}
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-[var(--color-ink-soft)]">
-            {filteredPrograms.length}{" "}
-            {filteredPrograms.length === 1 ? "programa encontrado" : "programas encontrados"}
-          </p>
-
-          {hasFilters && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setSearch("");
-                setCategory("Todos");
-              }}
-            >
-              Limpiar filtros
-            </Button>
-          )}
-        </div>
+      {/* Results count */}
+      <div className="flex items-center justify-between border-t border-[var(--color-line)] pt-4">
+        <p className="text-sm text-[var(--color-ink-soft)]">
+          {filteredPrograms.length}{" "}
+          {filteredPrograms.length === 1 ? "programa encontrado" : "programas encontrados"}
+        </p>
       </div>
 
       {/* Programs Grid */}
@@ -231,10 +202,7 @@ export function DashboardPage() {
           </div>
           <Button
             variant="outline"
-            onClick={() => {
-              setSearch("");
-              setCategory("Todos");
-            }}
+            onClick={clearFilters}
           >
             Limpiar filtros
           </Button>
