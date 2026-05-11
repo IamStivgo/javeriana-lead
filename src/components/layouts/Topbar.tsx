@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { SearchBar, ThemeToggle } from "../../components/molecules";
+import { useFiltersContext } from "../../hooks";
 
 export interface TopbarProps {
   onSearch?: (value: string) => void;
@@ -7,6 +8,11 @@ export interface TopbarProps {
 }
 
 export function Topbar({ onSearch, showSearch = true }: TopbarProps) {
+  const filtersContext = useFiltersContext();
+  
+  const handleSearch = filtersContext 
+    ? (value: string) => filtersContext.setFilter("search", value)
+    : onSearch;
   return (
     <header
       className={clsx(
@@ -37,10 +43,10 @@ export function Topbar({ onSearch, showSearch = true }: TopbarProps) {
         </button>
 
         {/* Search */}
-        {showSearch && onSearch && (
+        {showSearch && handleSearch && (
           <div className="flex-1 max-w-xl">
             <SearchBar
-              onSearch={onSearch}
+              onSearch={handleSearch}
               placeholder="Buscar programas..."
               fullWidth
             />
