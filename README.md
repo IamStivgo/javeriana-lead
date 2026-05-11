@@ -2,7 +2,7 @@
 
 Sistema de gestión de leads para programas académicos de la Pontificia Universidad Javeriana. Aplicación web moderna construida con React 19, TypeScript y Tailwind CSS v4.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://tu-url-de-vercel.vercel.app)
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://javeriana-lead.vercel.app/)
 [![Tests](https://img.shields.io/badge/tests-49%20passing-success)](./TESTS_DOCUMENTATION.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
